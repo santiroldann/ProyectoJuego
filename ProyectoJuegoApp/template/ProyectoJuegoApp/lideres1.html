@@ -1,0 +1,65 @@
+{% extends "base1.html" %}
+{% load static %}
+
+{% block tituloPagina %}
+Lideres - Juego App
+{% endblock %}
+
+{% block contenidoPagina %}
+<section class="bg-light py-5">
+    <div class="container px-5">
+        <h1>Los Lideres:</h1>
+        <br>
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-12">
+                <form class="d-flex my-2 my-lg-0" acrion="" method="post">
+                    {% csrf_token %}
+                    <input class="flex-grow-0 form-control mr-sm-2" type="search" name="search" placeholder="Buscar por avatar" aria-label="Search">
+                    <button class="btn btn-outline-success text-nowrap ms-3 my-2 my-sm-0" type="submit"> <i class="bi bi-search"> Buscar</i></button>
+                    <a class="btn btn-outline-success text-nowrap ms-3 my-2 my-sm-0" href="{% url 'crear_lider' %}"> <i class="bi bi-plug-lg"></i>Crear Lider</a>
+                    {% comment %}
+                    {% url 'crear_lider' %}
+                    {% endcomment %}
+                </form>
+            </div>
+        </div>
+        <br>
+        <h4>Resultados
+            {% if search %}
+                para "{{busqueda}}":
+            {% else %}
+                totales:
+            {% endif %}
+        </h4>
+        <br>
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-10 table-responsive">
+                <table class="table table-theme">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Avatar</th>
+                            <th scope="col">Juego</th>
+                            <th scope="col">Grupo</th>
+            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for lider in lideres %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{lider.avatar}}</td>
+                                <td>{{lider.juego}}</td>
+                                <td>{{lider.grupo}}</td>
+                                
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+        
