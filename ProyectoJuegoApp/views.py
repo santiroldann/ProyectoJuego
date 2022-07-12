@@ -1,3 +1,4 @@
+from ast import If
 from django.shortcuts import redirect, render
 
 from django.http import HttpResponse
@@ -10,10 +11,40 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.urls import reverse_lazy  
 
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+
 
 def inicio(request):
     
     return render(request,"index1.html",{})
+
+def login_request(request):
+    
+    if request.method == "POST":
+        
+        form = AuthenticationForm(request, data=request.POST)
+        
+        if form.is_valid():
+            
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                return redirect("inicio")
+            
+            else:
+                return redirect("login")
+            
+        else:
+            return redirect("login")
+         
+    form = AuthenticationForm()   
+    
+    return render(request, "login.html",{"form":form})
+    
     
 def crear_juego(request):
     
@@ -159,12 +190,12 @@ def editar_jugador(request, jugador_id):
 class JugadorList(ListView):
         
       model = Jugador
-      template_name = "ProyectoJuegoApp/jugador_list.html"
+      template_name = "jugador_list.html"
    
 class JugadorDetail(DetailView):
      
      model = Jugador
-     template_name = "ProyecoJuegoApp/jugador_detail.html"  
+     template_name = "jugador_detail.html"  
         
 class JugadorCreate(CreateView):
      
@@ -202,12 +233,12 @@ def lideres(request):
 class LiderList(ListView):
         
       model = Lider
-      template_name = "ProyectoJuegoApp/lider_list.html"
+      template_name = "lider_list.html"
    
 class LiderDetail(DetailView):
      
      model = Lider
-     template_name = "ProyecoJuegoApp/lider_detail.html"  
+     template_name = "lider_detail.html"  
         
 class LiderCreate(CreateView):
      

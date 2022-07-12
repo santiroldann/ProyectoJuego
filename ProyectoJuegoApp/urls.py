@@ -8,6 +8,7 @@ from .views import *
 urlpatterns = [
     
     path("", inicio, name= "inicio"),
+    path("login", login_request , name="login"),
     
     path("lideres/", lideres, name = "lideres"),
     path("jugadores/", jugadores, name= "jugadores"),
@@ -19,11 +20,11 @@ urlpatterns = [
     path(r"^editar/(?P<pk>\d+)$", JugadorUpdate.as_view(), name="jugador_update"),
     path(r"^eliminar/(?P<pk>\d+)$", JugadorDelete.as_view(), name="jugador_delete"),
     
-    path("lider/list", LiderList.as_view(), name="lider_list"),
-    path(r"^(?P<pk>\d+)$", LiderDetail.as_view(), name="lider_detail"),
-    path(r"^nuevo$", LiderCreate.as_view(), name="lider_create"),
-    path(r"^editar/(?P<pk>\d+)$", LiderUpdate.as_view(), name="lider_update"),
-    path(r"^eliminar/(?P<pk>\d+)$", LiderDelete.as_view(), name="lider_delete"),
+    path("lideres/list", LiderList.as_view(), name="lider_list"),
+    path("lideres/<pk>", LiderDetail.as_view(), name="lider_detail"),
+    path("lideres/nuevo", LiderCreate.as_view(), name="lider_create"),
+    path("lideres/editar/<pk>", LiderUpdate.as_view(), name="lider_update"),
+    path("lideres/eliminar/<pk>", LiderDelete.as_view(), name="lider_delete"),
     
     
     path("crear_juego/", crear_juego, name= "crear_juego"),
