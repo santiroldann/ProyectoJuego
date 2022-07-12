@@ -1,0 +1,19 @@
+{% extends "base1.html" %}
+{% block tituloPagina %}
+Registrarse - App Juegos
+{% endblock %}
+
+{% block contenidoPagina %}
+
+<section class="bg-light py-5">
+    <div class="container px-5">
+        <h1>Registrarse:</h1>
+    </div>
+<section class="bg-light py-5">
+    <div class="container px-5">
+    <form action="" method="post"> 
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Resgistrar</button>
+    </form>
+{% endblock %}

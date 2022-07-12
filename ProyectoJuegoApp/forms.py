@@ -1,6 +1,8 @@
 
 from django import forms
 from tabnanny import verbose
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class NuevoJuego(forms.Form):
     
@@ -19,3 +21,15 @@ class NuevoLider(forms.Form):
     correo = forms.EmailField()
     juego = forms.CharField(max_length=30)
     grupo = forms.IntegerField()
+    
+class UserRegisterForm(UserCreationForm):
+    
+    email = forms.EmailField()
+    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    password1 = forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput)
+    
+    class Meta:
+        model = User
+        fields = ["username", "email", "password1", "password2"]
+        
+        #help_texts = {k: "" for k in fields }

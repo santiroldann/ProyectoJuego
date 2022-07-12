@@ -1,7 +1,9 @@
 from ast import If
+from lzma import FORMAT_ALONE
 from django.shortcuts import redirect, render
 
 from django.http import HttpResponse
+from requests import request
 from ProyectoJuegoApp.models import *
 from .forms import *
 from django.db.models import Q
@@ -9,9 +11,10 @@ from django.db.models import Q
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
-from django.urls import reverse_lazy  
-
-from django.contrib.auth.forms import AuthenticationForm
+from django.urls import reverse_lazy 
+ 
+from .forms import UserRegisterForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 
 
@@ -44,7 +47,34 @@ def login_request(request):
     form = AuthenticationForm()   
     
     return render(request, "login.html",{"form":form})
+
+def register_request(request):
     
+    if request.method == "POST":
+        
+        #form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
+        
+        if form.is_valid():
+            
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("passsword1")
+            
+            form.save()
+            user = authenticate(username=username, password=password)
+           
+            if user is not None:
+              login(request, user)
+              return redirect("inicio")
+        
+            else:
+              return redirect("login")
+        
+        return render(request,"register.html",{"form":form})
+    
+    form = UserRegisterForm()
+    
+    return render(request, "register.html",{"form":form})  
     
 def crear_juego(request):
     
