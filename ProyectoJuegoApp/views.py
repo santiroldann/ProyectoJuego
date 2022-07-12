@@ -75,6 +75,10 @@ def register_request(request):
     form = UserRegisterForm()
     
     return render(request, "register.html",{"form":form})  
+
+def logout_request(request):
+    logout(request)
+    return redirect("inicio")
     
 def crear_juego(request):
     
