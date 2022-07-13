@@ -12,11 +12,12 @@
         {% for lider in object_list %}
         <li>
             Lider: {{lider.avatar}} {{lider.juego}} {{lider.grupo}}|
-            <a href="{% url 'lider_detail' lider.id" >Ver</a>
-            <a href="{% url 'lider_update' lider.id" >Editar</a>
-            <a href="{% url 'lider_delete' lider.id" >Eliminar</a>
+            <a href="{% url 'lider_detail' lider.id">Ver</a>
+            <a href="{% url 'lider_update' lider.id">Editar</a>
+            <a href="{% url 'lider_delete' lider.id">Eliminar</a>
         </li>
         {% endfor %}
     </ul>
+    <a href="{% url 'lider_create' %}">Crear Nuevo</a>
 </body>
 </html>

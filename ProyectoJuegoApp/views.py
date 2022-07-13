@@ -17,6 +17,9 @@ from .forms import UserRegisterForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 def inicio(request):
     
@@ -247,7 +250,8 @@ class JugadorDelete(DeleteView):
      
      model = Jugador
      success_url = "/juegoapp/jugador/list"
-      
+
+@login_required      
 def lideres(request):
     
     if request.method == "POST":
@@ -264,7 +268,7 @@ def lideres(request):
     
     return render(request,"lideres1.html",{"lideres":lideres})
 
-class LiderList(ListView):
+class LiderList(LoginRequiredMixin,ListView):
         
       model = Lider
       template_name = "lider_list.html"
@@ -277,19 +281,19 @@ class LiderDetail(DetailView):
 class LiderCreate(CreateView):
      
      model = Jugador
-     success_url = "/juegoapp/lider/list"
+     success_url = "/juegoapp/list"
      fields = ["avatar", "correo", "juego", "grupo"]
      
 class LiderUpdate(UpdateView):
    
      model = Lider
-     success_url = "/juegoapp/lider/list"
+     success_url = "/juegoapp/list"
      fields = ["avatar", "correo", "juego", "grupo"]
      
 class LiderDelete(DeleteView):
      
      model = Lider
-     success_url = "/juegoapp/lider/list"
+     success_url = "/juegoapp/list"
     
 def jugadores(request):
     
@@ -307,6 +311,7 @@ def jugadores(request):
     
     return render(request,"jugadores1.html",{"jugadores":jugadores})
 
+@staff_member_required
 def juegos(request):
     
     if request.method == "POST":

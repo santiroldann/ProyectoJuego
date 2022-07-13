@@ -16,7 +16,7 @@ urlpatterns = [
     path("jugadores/", jugadores, name= "jugadores"),
     path("juegos/", juegos, name= "juegos"),
     
-    path("jugador/list", JugadorList.as_view(), name="jugador_list"),
+    path("jugadores/list", JugadorList.as_view(), name="jugador_list"),
     path(r"^(?P<pk>\d+)$", JugadorDetail.as_view(), name="jugador_detail"),
     path(r"^nuevo$", JugadorCreate.as_view(), name="jugador_create"),
     path(r"^editar/(?P<pk>\d+)$", JugadorUpdate.as_view(), name="jugador_update"),
