@@ -23,8 +23,19 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 def inicio(request):
     
+    if request.user.is_authenticated:
+        try:
+            imgperfil = ImgPerfil.objects.get(usuario=request.user)
+            url = imgperfil.imagen.url
+        except:
+            url = "/media/avatar/generica.png"
+            
+        return render(request,"index1.html",{"url":url})
+        
+    
     return render(request,"index1.html",{})
 
+    
 def login_request(request):
     
     if request.method == "POST":
@@ -82,6 +93,33 @@ def register_request(request):
 def logout_request(request):
     logout(request)
     return redirect("inicio")
+ 
+@login_required 
+def editar_perfil(request):
+    
+    user = request.user
+    
+    if request.method == "POST":
+        
+        form = UserEditForm(request.POST)
+        
+        if form.is_valid():
+            
+            info = form.cleaned_data
+            user.email = info["email"]
+            user.password = info["password1"]
+            user.password = info["password2"]
+            user.first_name = info["first_name"]
+            user.last_name = info["last_name"]
+            
+            user.save()
+            
+            return redirect("inicio")
+    
+    else:
+        form = UserEditForm(initial={"email":user.email})
+    
+    return render(request, "editar_perfil.html",{"form":form}) 
     
 def crear_juego(request):
     

@@ -1,7 +1,15 @@
 from django.db import models
 from numpy import require
+from django.contrib.auth.models import User
 
 # Create your models here.
+class ImgPerfil(models.Model):
+    
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to="imgperfil/", blank=True, null=True)
+
+
+
 class Jugador(models.Model):
     
     avatar = models.CharField(max_length=30)

@@ -1,0 +1,21 @@
+{% extends "base1.html" %}
+{% block tituloPagina %}
+Editar Perfil - App Juegos
+{% endblock %}
+
+{% block contenidoPagina %}
+
+<section class="bg-light py-5">
+    <div class="container px-5">
+        <h1>Editar Perfil</h1>
+        <br>
+        <h5>Estas editando al usuario "{{user.username}}"</h5>
+        <br>
+        <form action="" method="post"> 
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Guardar cambios</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
