@@ -11,7 +11,7 @@ Agregar Imagen - App Juegos
     </div>
 <section class="bg-light py-5">
     <div class="container px-5">
-    <form action="" method="post"> 
+    <form action="" method="post" enctype="multipart/form-data"> 
         {% csrf_token %}
         {{form.as_p}}
         <button type="submit">Guardar</button>

@@ -374,7 +374,7 @@ def jugadores(request):
     
     return render(request,"jugadores1.html",{"jugadores":jugadores})
 
-@staff_member_required
+
 def juegos(request):
     
     if request.method == "POST":
