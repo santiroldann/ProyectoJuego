@@ -23,7 +23,7 @@ urlpatterns = [
     path(r"^eliminar/(?P<pk>\d+)$", JugadorDelete.as_view(), name="jugador_delete"),
     
     path("lideres/list", LiderList.as_view(), name="lider_list"),
-    path("lideres/<pk>", LiderDetail.as_view(), name="lider_detail"),
+    path('lideres/<pk>', LiderDetail.as_view(), name="lider_detail"),
     path("lideres/nuevo", LiderCreate.as_view(), name="lider_create"),
     path("lideres/editar/<pk>", LiderUpdate.as_view(), name="lider_update"),
     path("lideres/eliminar/<pk>", LiderDelete.as_view(), name="lider_delete"),
