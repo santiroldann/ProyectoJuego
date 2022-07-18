@@ -4,6 +4,9 @@ from tabnanny import verbose
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from ProyectoJuegoApp.models import ImgPerfil
+
+
 class NuevoJuego(forms.Form):
     
     juego = forms.CharField(max_length=30)
@@ -54,3 +57,11 @@ class UserEditForm(UserCreationForm):
         fields = ["email", "password1", "password2", "first_name", "last_name"]
         
         help_texts = {k: "" for k in fields }
+        
+class ImgPerfilForm(forms.Form):
+    
+    imagen = forms.ImageField(label="imagen")
+    
+    class Meta:
+        model = ImgPerfil
+        fields = 'imagen'

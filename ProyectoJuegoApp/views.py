@@ -1,5 +1,6 @@
 from ast import If
 from lzma import FORMAT_ALONE
+import re
 from django.shortcuts import redirect, render
 
 from django.http import HttpResponse
@@ -120,6 +121,30 @@ def editar_perfil(request):
         form = UserEditForm(initial={"email":user.email})
     
     return render(request, "editar_perfil.html",{"form":form}) 
+
+@login_required
+def agregar_imagen(request):
+    
+    if request.method == "POST":
+        
+        form = ImgPerfilForm(request.POST, request.FILES)
+    
+        if form.is_valid():
+        
+         user = User.objects.get(username=request.user.username)
+        
+         imgperfil = ImgPerfil(usuario=user, imagen=form.cleaned_data["imagen"])
+        
+         imgperfil.save()
+    
+        
+         return redirect("inicio")
+    
+    else:
+        form = ImgPerfilForm()
+        
+    return render(request,"agregar_imagen.html",{"form":form})
+        
     
 def crear_juego(request):
     
