@@ -36,9 +36,19 @@ urlpatterns = [
     path("crear_lider/", crear_lider, name= "crear_lider"),
     
     path("editar_juego/<juego_id>", editar_juego, name="editar_juego"),
+    path("editar_jugador/<jugador_id>", editar_juego, name="editar_jugador"),
+    path("editar_lider/<lider_id>", editar_juego, name="editar_lider"),
     
     path("eliminar_juego/<juego_id>", eliminar_juego, name="eliminar_juego"),
-    path("eliminar_jugador/<estudiante_id>", eliminar_jugador, name="eliminar_jugador"),
+    path("eliminar_jugador/<jugador_id>", eliminar_jugador, name="eliminar_jugador"),
+    path("eliminar_lider/<lider_id>", eliminar_lider, name="eliminar_lider"),
     path("base/",base),
+    
+    path('cv/', cv, name="cv"),
+    path('acerca/', acerca, name="acerca"),
+    path('post/', post, name="post"),
+    path('post2/', post2, name="post2"),
+    path('post3/', post3, name="post3"),
+    path('post4/', post4, name="post4"),
 
 ]

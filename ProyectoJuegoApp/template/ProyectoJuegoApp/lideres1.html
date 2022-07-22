@@ -52,7 +52,14 @@ Lideres - Juego App
                                 <td>{{lider.avatar}}</td>
                                 <td>{{lider.juego}}</td>
                                 <td>{{lider.grupo}}</td>
-                                
+                                <td>
+
+                                    {% if user.is_staff %}
+                                    <a href="{% url 'editar_lider' lider.id %}" class="text-primary badge badge-primary text-decoration-none"> <i class="bi bi-pencil-square"></i> Editar</a>
+                                    <a href="{% url 'eliminar_lider' lider.id %}" class="text-danger badge badge-danger text-decoration-none"> <i class="bi bi-x-square"></i> Eliminar</a>
+                                    {% endif %}
+
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

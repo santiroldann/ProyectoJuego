@@ -285,6 +285,13 @@ def editar_jugador(request, jugador_id):
     formulario = NuevoJugador(initial={"avatar":jugador.avatar, "correo":jugador.correo, "juego":jugador.juego})
       
     return render(request,"formulario_jugador.html",{"form":formulario})
+
+def eliminar_lider(request,jugador_id):
+    
+    jugador = Jugador.objects.get(id=jugador_id)
+    jugador.delete()
+    
+    return redirect("jugadores")
     
 
 class JugadorList(ListView):
@@ -313,8 +320,7 @@ class JugadorDelete(DeleteView):
      
      model = Jugador
      success_url = "/juegoapp/jugador/list"
-
-@login_required      
+     
 def lideres(request):
     
     if request.method == "POST":
@@ -395,3 +401,27 @@ def juegos(request):
 def base(request):
     
     return render(request,"base1.html",{})
+
+def cv(request):
+    #return HttpResponse('aca va mi CV')
+    return render(request, "cv.html", {})
+
+def acerca(request):
+    #return HttpResponse('aca va info acerca de mi')
+    return render(request, "acerca.html", {})
+
+def post(request):
+
+    return render(request, "post.html", {})
+
+def post2(request):
+
+    return render(request, "post2.html", {})
+
+def post3(request):
+
+    return render(request, "post3.html", {})
+
+def post4(request):
+
+    return render(request, "post4.html", {})

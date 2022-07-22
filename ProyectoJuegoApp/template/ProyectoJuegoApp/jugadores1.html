@@ -50,7 +50,12 @@ Jugadores - Juego App
                                 <th scope="row">{{forloop.counter}}</th>
                                 <td>{{jugador.avatar}}</td>
                                 <td>{{jugador.juego}}</td>
-                                
+                                <td>
+
+                                    {% if user.is_staff %}
+                                    <a href="{% url 'editar_jugador' jugador.id %}" class="text-primary badge badge-primary text-decoration-none"> <i class="bi bi-pencil-square"></i> Editar</a>
+                                    <a href="{% url 'eliminar_jugador' jugador.id %}" class="text-danger badge badge-danger text-decoration-none"> <i class="bi bi-x-square"></i> Eliminar</a>
+                                    {% endif %}
                             </tr>
                         {% endfor %}
                     </tbody>
