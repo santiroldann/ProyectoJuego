@@ -52,6 +52,7 @@ class UserEditForm(UserCreationForm):
     
     first_name = forms.CharField(label="Nombre", required=False)
     last_name = forms.CharField(label="Apellido", required=False)
+    imgperfil = forms.ImageField(label="imagen")
     
     class Meta:
         model = User

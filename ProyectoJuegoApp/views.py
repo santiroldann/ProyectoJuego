@@ -107,28 +107,37 @@ def editar_perfil(request):
     
     user = request.user
     
+    try:
+        imgperfil = ImgPerfil(usuario=user)
+    except:
+        imgperfil = ImgPerfil(usuario=user)
+        imgperfil.save()
+    
     if request.method == "POST":
         
-        form = UserEditForm(request.POST)
+        form = UserEditForm(request.POST, request.FILES)
         
         if form.is_valid():
             
             info = form.cleaned_data
             user.email = info["email"]
-            user.password = info["password1"]
-            user.password = info["password2"]
             user.first_name = info["first_name"]
             user.last_name = info["last_name"]
+            imgperfil.imagen = info["imagen"]
             
             user.save()
+            imgperfil.save()
             
             return redirect("inicio")
     
+        else:
+            return render(request, "editar_perfil.html",{"form":form}) 
+        
     else:
-        form = UserEditForm(initial={"email":user.email})
-    
-    return render(request, "editar_perfil.html",{"form":form}) 
-
+        form = UserEditForm(initial={"email":user.email,"first_name":user.first_name,"last_name":user.last_name, "imagen":imgperfil.imagen})
+        
+    return render(request,"editar_perfil.html",{"form":form})
+ 
 @login_required
 def agregar_imagen(request):
     
