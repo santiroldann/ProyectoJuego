@@ -17,21 +17,28 @@ from django.urls import reverse_lazy
 from .forms import UserRegisterForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
+page_title = "Call Of Duty"
+
+base_context = {
+    'page_title': page_title,
+}
+
 def inicio(request):
     
     if request.user.is_authenticated:
-        try:
+         try:
             imgperfil = ImgPerfil.objects.get(usuario=request.user)
             url = imgperfil.imagen.url
-        except:
+         except:
             url = "/media/avatar/generica.png"
             
-        return render(request,"index1.html",{"url":url})
+         return render(request,"index1.html",{"url":url})
         
     
     return render(request,"index1.html",{})
@@ -425,3 +432,21 @@ def post3(request):
 def post4(request):
 
     return render(request, "post4.html", {})
+
+def enviar_mensaje(request):
+    if request.method == "POST":
+        form = CreateMensajeForm(request.POST)
+        if form.is_valid():
+            info  = form.cleaned_data
+            nuevo_mensaje = Mensaje(remitente=request.user,destinatario=User.objects.get(email=info["destinatario"]), mensaje = info["mensaje"])
+            nuevo_mensaje.save()
+            # form.save()
+            messages.success(request, "Mensaje enviado!")
+            return redirect("inicio")
+        else:
+            messages.error(request, "Error al enviar el mensaje!")
+            return redirect("inicio")
+    else:
+        form = CreateMensajeForm()
+        base_context.update({"form":form})
+        return render(request,"mensaje.html", base_context)

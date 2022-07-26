@@ -3,8 +3,9 @@ from django import forms
 from tabnanny import verbose
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
-from ProyectoJuegoApp.models import ImgPerfil
+from ProyectoJuegoApp.models import ImgPerfil, Post
 
 
 class NuevoJuego(forms.Form):
@@ -65,3 +66,11 @@ class ImgPerfilForm(forms.Form):
     class Meta:
         model = ImgPerfil
         fields = 'imagen'
+        
+
+class CreateMensajeForm(forms.Form):
+    
+    destinatario = forms.EmailField(label='Email', required=True, widget=forms.Select(choices=[('', 'Seleccione un destinatario')] + [(user.email, user.email) for user in User.objects.all()]))
+    # email = forms.EmailField(label='Email', required=True)
+    mensaje = forms.CharField(label='Mensaje', required=True, widget=forms.Textarea)     
+##

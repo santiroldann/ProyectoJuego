@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     "ProyectoJuegoApp",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -105,6 +106,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_URL = "/juegoapp/login"
 
+#ckeditor
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    },
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

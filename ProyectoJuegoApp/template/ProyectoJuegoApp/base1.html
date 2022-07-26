@@ -45,9 +45,9 @@
                          <li class="nav-item"><a class="btn btn-dark mx-2"" href={% url "lideres" %}>Lideres</a></li>
 
                         {% if user.is_authenticated %}
-                            <img class="rounded" src = "{{avatar.imagen.url}}" alt="" srcset="" style="height: 40px;">
+                            <img class="rounded" src = "{{url}}" alt="" srcset="" style="height: 40px;">
                             <!-- <i class="bi bi-person-badge-fil text-light"></i> -->
-                            <li class="nav-item"><p class="text-dark my-2 mx-2">  Hola, <b>{{user.username}}</b></p></li>
+                            <li class="nav-item"><p class="text-light my-2 mx-2">  Hola, <b>{{user.username}}</b></p></li>
                             <li class="nav-item"><a class="btn btn-dark mx-2" href={% url "logout" %}>Cerrar sesión</a></li>
                         {% else %}
                             <li class="nav-item"><a class="btn btn-dark mx-2" href={% url "login" %}>Iniciar sesión</a></li>

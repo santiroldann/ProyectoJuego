@@ -46,9 +46,11 @@ urlpatterns = [
     
     path('cv/', cv, name="cv"),
     path('acerca/', acerca, name="acerca"),
+    #path('crear_post/', crear_post, name="crear_post"),
     path('post/', post, name="post"),
     path('post2/', post2, name="post2"),
     path('post3/', post3, name="post3"),
     path('post4/', post4, name="post4"),
+    path('enviar_mensaje/', enviar_mensaje, name='enviar_mensaje'),
 
 ]
