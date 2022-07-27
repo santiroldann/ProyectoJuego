@@ -31,6 +31,8 @@ base_context = {
 
 def inicio(request):
     
+    posts = Post.objects.filter(estado = True)
+    
     if request.user.is_authenticated:
          try:
             imgperfil = ImgPerfil.objects.get(usuario=request.user)
@@ -41,7 +43,7 @@ def inicio(request):
          return render(request,"index1.html",{"url":url})
         
     
-    return render(request,"index1.html",{})
+    return render(request,"index1.html",{"posts":posts})
 
     
 def login_request(request):
@@ -426,9 +428,9 @@ def acerca(request):
     #return HttpResponse('aca va info acerca de mi')
     return render(request, "acerca.html", {})
 
-def post(request):
+def posts(request):
 
-    return render(request, "post.html", {})
+    return render(request, "posts.html", {})
 
 def post2(request):
 
