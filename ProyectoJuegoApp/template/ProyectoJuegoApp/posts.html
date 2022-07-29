@@ -18,6 +18,7 @@ Posts - App Juegos
                             <h1 class="display-4 fw-bolder text-light mb-2">POSTS 💻</h1>
                             <p class="lead text-white-50 mb-4">Aquí encontrarás posts relacionados con la saga</p>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center"></div>
+                            {% csrf_token %}
 
                              </div>
                               {% if user.is_authenticated %}
