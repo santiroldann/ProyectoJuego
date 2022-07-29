@@ -10,8 +10,8 @@ class ImgPerfil(models.Model):
     
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to="imgperfil/", blank=True, null=True)
-
-
+    def __str__(self):
+        return f"Jugador: {self.usuario} "
 
 class Jugador(models.Model):
     
@@ -41,10 +41,8 @@ class Juego(models.Model):
         verbose_name_plural = "Juegos"
         
 class Post(models.Model):
-    
-    id = models.AutoField(primary_key = True)
+
     titulo = models.CharField("Titulo", max_length= 90, blank = False, null= False)
-    slug = models.CharField("Slug", max_length= 100, blank= False, null = False)
     descripcion = models.CharField("Descripcion", max_length= 110, blank = False, null= False)
     contenido = RichTextField("Contenido", default = "Some string")
     imagen = models.URLField(max_length= 255, blank= 255, null= False)
@@ -58,7 +56,7 @@ class Post(models.Model):
         verbose_name_plural = "Posts"
         
     def __str__(self):
-        return self.titulo
+        return f"Autor: {self.autor} - Titulo: {self.titulo}"
 
 class Mensaje(models.Model):
 

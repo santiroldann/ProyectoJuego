@@ -44,7 +44,6 @@ def inicio(request):
         
     
     return render(request,"index1.html",{"posts":posts})
-
     
 def login_request(request):
     
@@ -76,7 +75,6 @@ def register_request(request):
     
     if request.method == "POST":
         
-        #form = UserCreationForm(request.POST)
         form = UserRegisterForm(request.POST)
         
         if form.is_valid():
@@ -96,49 +94,15 @@ def register_request(request):
         
         return render(request,"register.html",{"form":form})
     
-    form = UserRegisterForm()
+    
+    else:
+        form = UserRegisterForm()
     
     return render(request, "register.html",{"form":form})  
 
 def logout_request(request):
     logout(request)
     return redirect("inicio")
- 
-@login_required 
-def editar_perfil(request):
-    
-    user = request.user
-    
-    try:
-        imgperfil = ImgPerfil(usuario=user)
-    except:
-        imgperfil = ImgPerfil(usuario=user)
-        imgperfil.save()
-    
-    if request.method == "POST":
-        
-        form = UserEditForm(request.POST, request.FILES)
-        
-        if form.is_valid():
-            
-            info = form.cleaned_data
-            user.email = info["email"]
-            user.first_name = info["first_name"]
-            user.last_name = info["last_name"]
-            imgperfil.imagen = info["imagen"]
-            
-            user.save()
-            imgperfil.save()
-            
-            return redirect("inicio")
-    
-        else:
-            return render(request, "editar_perfil.html",{"form":form}) 
-        
-    else:
-        form = UserEditForm(initial={"email":user.email,"first_name":user.first_name,"last_name":user.last_name, "imagen":imgperfil.imagen})
-        
-    return render(request,"editar_perfil.html",{"form":form})
  
 @login_required
 def agregar_imagen(request):
@@ -148,22 +112,53 @@ def agregar_imagen(request):
         form = ImgPerfilForm(request.POST, request.FILES)
     
         if form.is_valid():
-        
-         user = User.objects.get(username=request.user.username)
-        
-         imgperfil = ImgPerfil(usuario=user, imagen=form.cleaned_data["imagen"])
-        
-         imgperfil.save()
-    
-        
-         return redirect("inicio")
+           user = User.objects.get(username=request.user.username)
+           imgperfil = ImgPerfil(usuario=user, imagen=form.cleaned_data["imagen"])
+           imgperfil.save()
+           return redirect("inicio")
     
     else:
         form = ImgPerfilForm()
         
     return render(request,"agregar_imagen.html",{"form":form})
-        
+
+@login_required        
+def perfil(request):
     
+    if request.user.is_authenticated:
+        try:
+            imgperfil = ImgPerfil.objects.get(usuario=request.user)
+            url = imgperfil.imagen.url
+            
+        except:
+            url = "ProyectoJuego/media/avatar/generica.png"
+
+@login_required
+def editar_perfil(request):
+    usuario = request.user
+    
+    if request.method == "POST":
+        
+        form = UserEditForm(request.POST)
+        
+        if form.is_valid():
+            info = form.cleaned_data
+            usuario.username = info["username"]
+            usuario.email = info['email']
+            usuario.password1 = info['password1']
+            usuario.password2 = info['password2']
+            usuario.first_name = info['first_name']
+            usuario.last_name = info['last_name']
+            
+            usuario.save()
+            
+            return redirect("perfil")
+    else:
+        form = UserEditForm(initial= {"username": usuario.username, "email":usuario.email, "first_name":usuario.first_name, "last_name":usuario.last_name})
+            
+    return render(request, "editar_perfil.html", {"form":form})
+
+@staff_member_required
 def crear_juego(request):
     
     if request.method == "POST":
@@ -189,14 +184,14 @@ def crear_juego(request):
         formulariovacio = NuevoJuego()
         
         return render(request, "formulario_juego.html",{"form":formulariovacio})
-    
+@staff_member_required    
 def eliminar_juego(request,juego_id):
     
     juego = Juego.objects.get(id=juego_id)
     juego.delete()
     
     return redirect("juegos")
-
+@staff_member_required
 def editar_juego(request,juego_id):
     
     juego = Juego.objects.get(id=juego_id)
@@ -219,7 +214,7 @@ def editar_juego(request,juego_id):
     formulario = NuevoJuego(initial={"juego":juego.juego, "grupo":juego.grupo})
       
     return render(request,"formulario_juego.html",{"form":formulario})
-         
+@staff_member_required        
 def crear_jugador(request):
     
     if request.method == "POST":
@@ -246,14 +241,14 @@ def crear_jugador(request):
     
         
         return render(request, "formulario_jugador.html",{"form":formulariovacio})
-    
+@staff_member_required    
 def eliminar_jugador(request,jugador_id):
     
     jugador = Jugador.objects.get(id=jugador_id)
     jugador.delete()
     
     return redirect("jugadores")
-
+@staff_member_required
 def crear_lider(request):
     
     if request.method == "POST":
@@ -279,7 +274,7 @@ def crear_lider(request):
         formulariovacio = NuevoLider()
         
         return render(request, "formulario_lider.html",{"form":formulariovacio})   
-
+@staff_member_required
 def editar_jugador(request, jugador_id):
     
     jugador = Juego.objects.get(id=jugador_id)
@@ -303,7 +298,7 @@ def editar_jugador(request, jugador_id):
     formulario = NuevoJugador(initial={"avatar":jugador.avatar, "correo":jugador.correo, "juego":jugador.juego})
       
     return render(request,"formulario_jugador.html",{"form":formulario})
-
+@staff_member_required
 def eliminar_lider(request,jugador_id):
     
     jugador = Jugador.objects.get(id=jugador_id)
@@ -311,7 +306,6 @@ def eliminar_lider(request,jugador_id):
     
     return redirect("jugadores")
     
-
 class JugadorList(ListView):
         
       model = Jugador
@@ -398,7 +392,6 @@ def jugadores(request):
     
     return render(request,"jugadores1.html",{"jugadores":jugadores})
 
-
 def juegos(request):
     
     if request.method == "POST":
@@ -428,21 +421,61 @@ def acerca(request):
     #return HttpResponse('aca va info acerca de mi')
     return render(request, "acerca.html", {})
 
-def posts(request):
+def posts(request, post_id):
+    post = Post.objects.get(id=post_id)
+    return render(request, "posts.html", {"post":post})
 
-    return render(request, "posts.html", {})
+def post(request):
+    post = Post.objects.all()
+    return render(request, "post.html",{"post":post})
 
-def post2(request):
+@login_required
+def crear_post(request):
+  
+  if request.method == "POST":
+      
+        form = CrearPost(request.POST, request.FILES)
+        
+        if form.is_valid():
+            form.save()
 
-    return render(request, "post2.html", {})
+            return redirect('posts', {"form":form})
+  else:
+    form = CrearPost()
 
-def post3(request):
+  return render(request, 'crear_post.html' , {"form":form})  
 
-    return render(request, "post3.html", {})
+def eliminar_post(request,post_id):
+    
+    post = Post.objects.get(id=post_id)
+    post.delete()
+    return redirect("posts")
+    
+def editar_post(request, post_id):
+    
+    post = Post.objects.get(id=post_id)
+    form = CrearPost(request.POST, request.FILES)
+    
+    if request.method == 'POST':
+        form = CrearPost(request.POST, request.FILES)
+        if form.is_valid():
+            post_info = form.cleaned_data.get
+            
+            post.titulo = post_info("titulo")
+            post.descripcion = post_info("  descripcion")
+            post.contenido = post_info("contenido")
+            post.imagen = post_info("imagen")
+            post.autor = post_info("autor")
+            post.save()
+            return redirect("posts")
 
-def post4(request):
+        else:
+            return render(request, "editar_post.html", {"form": form, "post":post})
 
-    return render(request, "post4.html", {})
+    form = CrearPost(initial={"titulo": post.titulo, "descripcion": post.descripcion, "contenido": post.contenido, "imagen": post.imagen,"autor": post.autor})
+
+    return render(request, "editar_post.html", {"form": form, "post":post})
+
 
 def enviar_mensaje(request):
     if request.method == "POST":

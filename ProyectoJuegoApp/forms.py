@@ -3,8 +3,9 @@ from django import forms
 from tabnanny import verbose
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import *
 from ckeditor.fields import RichTextField
-
+from django.forms import ModelForm
 from ProyectoJuegoApp.models import ImgPerfil, Post
 
 
@@ -29,13 +30,13 @@ class NuevoLider(forms.Form):
 class UserRegisterForm(UserCreationForm):
     
     roles = [("jugador", "Jugador"),("lider", "Lider")]
-    email = forms.EmailField()
+    username = forms.CharField(label="Username")
+    email = forms.EmailField(label="Email")
     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
     password1 = forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput)
-    
-    first_name = forms.CharField(label="Nombre")
-    last_name = forms.CharField(label="Apellido")
-    
+    first_name = forms.CharField(label="Nombre", required=False)
+    last_name = forms.CharField(label="Apellido", required=False)
+    imgperfil = models.ImageField(upload_to='imgperfil/', null=True, blank=True)
     roles = forms.MultipleChoiceField(choices=roles, label="Roles", widget=forms.Select(choices=roles))
     
     class Meta:
@@ -46,17 +47,19 @@ class UserRegisterForm(UserCreationForm):
         
 class UserEditForm(UserCreationForm):
     
+    roles = [("jugador", "Jugador"),("lider", "Lider")]
+    username = forms.CharField(label="Username")
     email = forms.EmailField(label="Email")
-    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput, required=False)
-    password1 = forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput, required=False)
-    
+    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    password1 = forms.CharField(label="Confirmar Contraseña", widget=forms.PasswordInput)
     first_name = forms.CharField(label="Nombre", required=False)
     last_name = forms.CharField(label="Apellido", required=False)
-    imgperfil = forms.ImageField(label="imagen")
+    imgperfil = models.ImageField(upload_to='imgperfil/', null=True, blank=True)
+    roles = forms.MultipleChoiceField(choices=roles, label="Roles", widget=forms.Select(choices=roles))
     
     class Meta:
         model = User
-        fields = ["email", "password1", "password2", "first_name", "last_name"]
+        fields = ["username", "email", "password1", "password2", "first_name", "last_name"]
         
         help_texts = {k: "" for k in fields }
         
@@ -66,8 +69,12 @@ class ImgPerfilForm(forms.Form):
     
     class Meta:
         model = ImgPerfil
-        fields = 'imagen'
+        fields = ['imagen'] 
         
+class CrearPost(ModelForm):
+    class Meta:
+        model = Post
+        fields = ('titulo', 'descripcion', 'contenido', 'imagen', 'autor', 'categoria',)
 
 class CreateMensajeForm(forms.Form):
     
