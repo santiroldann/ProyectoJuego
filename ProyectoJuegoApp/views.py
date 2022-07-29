@@ -132,6 +132,9 @@ def perfil(request):
             
         except:
             url = "ProyectoJuego/media/avatar/generica.png"
+        return render(request, "perfil.html",{"url":url})
+    
+    return render(request, "perfil.html",{})   
 
 @login_required
 def editar_perfil(request):
@@ -152,7 +155,7 @@ def editar_perfil(request):
             
             usuario.save()
             
-            return redirect("perfil")
+            return redirect("inicio")
     else:
         form = UserEditForm(initial= {"username": usuario.username, "email":usuario.email, "first_name":usuario.first_name, "last_name":usuario.last_name})
             
@@ -454,6 +457,7 @@ def eliminar_post(request,post_id):
 def editar_post(request, post_id):
     
     post = Post.objects.get(id=post_id)
+    
     form = CrearPost(request.POST, request.FILES)
     
     if request.method == 'POST':

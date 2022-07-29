@@ -13,6 +13,7 @@ urlpatterns = [
     path("logout", logout_request , name="logout"),
     path("editar_perfil", editar_perfil, name="editar_perfil"),
     path("agregar_imagen", agregar_imagen, name="agregar_imagen"),
+    path("perfil", perfil, name="perfil"),
     
     path("lideres/", lideres, name = "lideres"),
     path("jugadores/", jugadores, name= "jugadores"),

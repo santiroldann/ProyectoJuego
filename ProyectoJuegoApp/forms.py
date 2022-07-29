@@ -29,7 +29,6 @@ class NuevoLider(forms.Form):
     
 class UserRegisterForm(UserCreationForm):
     
-    roles = [("jugador", "Jugador"),("lider", "Lider")]
     username = forms.CharField(label="Username")
     email = forms.EmailField(label="Email")
     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
@@ -37,7 +36,6 @@ class UserRegisterForm(UserCreationForm):
     first_name = forms.CharField(label="Nombre", required=False)
     last_name = forms.CharField(label="Apellido", required=False)
     imgperfil = models.ImageField(upload_to='imgperfil/', null=True, blank=True)
-    roles = forms.MultipleChoiceField(choices=roles, label="Roles", widget=forms.Select(choices=roles))
     
     class Meta:
         model = User
@@ -47,7 +45,6 @@ class UserRegisterForm(UserCreationForm):
         
 class UserEditForm(UserCreationForm):
     
-    roles = [("jugador", "Jugador"),("lider", "Lider")]
     username = forms.CharField(label="Username")
     email = forms.EmailField(label="Email")
     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
@@ -55,7 +52,7 @@ class UserEditForm(UserCreationForm):
     first_name = forms.CharField(label="Nombre", required=False)
     last_name = forms.CharField(label="Apellido", required=False)
     imgperfil = models.ImageField(upload_to='imgperfil/', null=True, blank=True)
-    roles = forms.MultipleChoiceField(choices=roles, label="Roles", widget=forms.Select(choices=roles))
+    
     
     class Meta:
         model = User
@@ -81,4 +78,3 @@ class CreateMensajeForm(forms.Form):
     destinatario = forms.EmailField(label='Email', required=True, widget=forms.Select(choices=[('', 'Seleccione un destinatario')] + [(user.email, user.email) for user in User.objects.all()]))
     # email = forms.EmailField(label='Email', required=True)
     mensaje = forms.CharField(label='Mensaje', required=True, widget=forms.Textarea)     
-##
