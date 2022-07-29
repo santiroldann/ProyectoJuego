@@ -1,0 +1,32 @@
+{% extends "base1.html" %}
+
+{% load static %}
+
+{% block titulo %}
+
+Crear Post - App Juego
+
+{% endblock %}
+
+{% block contenido %}
+
+
+
+<section class="features">
+        <div class="container">
+            <div class="row" data-aos="fade-up">
+                <div class="section-title">
+                    <h2>Crear Post</h2>
+                </div>
+                <div class="d-flex justify-cntent-center align-items-center">
+                    <form method="post" action="{% url 'crearPost' %}" class="post-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button  class="btn"  style="background-color: black; color: white" type="submit">Subir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

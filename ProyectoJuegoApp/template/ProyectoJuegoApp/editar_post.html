@@ -1,0 +1,31 @@
+{% extends "base1.html" %}
+
+{% load static %}
+
+{% block titulo %}
+
+Editar Post - App Juego
+
+{% endblock %}
+
+
+{% block contenido %}
+
+<section class="features">
+        <div class="container">
+            <div class="row" data-aos="fade-up">
+                <div class="section-title">
+                    <h2>Editar Post</h2>
+                </div>
+                <div class="d-flex justify-cntent-center align-items-center">
+                    <form action="{% url 'editar_post' post.id %}" method="post" class="post-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button  class="btn"  style="background-color: grey; color: white" type="submit">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

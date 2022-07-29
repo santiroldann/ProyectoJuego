@@ -1,1 +1,66 @@
 {% extends "base1.html" %}
+{% load static %}
+
+{% block titulo %}
+
+Post - App juego
+
+{% endblock %}
+
+
+{% block contenido %}
+
+
+  <main id="main">
+
+
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-8 entries">
+
+            <article class="entry entry-single">
+
+              <div class="entry-img">
+                <img src="{{ post.imagen.url }}" alt="" class="img-fluid">
+              </div>
+
+              <h2 class="entry-title">
+                <a href="#">{{post.titulo}}</a>
+              </h2>
+
+              <div class="entry-meta">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="{% url 'acerca' %}">{{post.autor}}</a></li>
+        
+                  {% if user.is_authenticated %}
+                     {% if user.username == "admin" %}
+                  <li class="d-flex align-items-center"><i class="bi bi-pencil"></i> <a href="{% url 'editar_post' post.id %}">Editar</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-x-circle"></i> <a href="{% url 'eliminar_post' post.id %}">Eliminar</a></li>
+                     {% endif %}
+                  {% endif %}
+                </ul>
+              </div>
+
+              <div class="entry-content">
+                <p>
+                    {{post.post}}
+                </p>
+              </div>
+
+            </article> 
+
+              <h3 class="sidebar-title">Recent Posts</h3>
+
+        
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+{% endblock %}

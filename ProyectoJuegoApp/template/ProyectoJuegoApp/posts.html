@@ -17,6 +17,47 @@ Posts - App Juegos
                         <div class="text-center my-5">
                             <h1 class="display-4 fw-bolder text-light mb-2">POSTS 💻</h1>
                             <p class="lead text-white-50 mb-4">Aquí encontrarás posts relacionados con la saga</p>
-                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center"></div>
+
+                             </div>
+                              {% if user.is_authenticated %}
+                              {% if user.username == "admin" %}
+                               <div class="entry">
+                               <div class="row">
+                               <div class="section-title">
+           
+                                <h3> <a href="{% url 'crear_post' %}"><button  class="btn" type="button" style="background-color: #009800a7; color: black">Crear Post</button></a> Eres Administrador</h3>
+                             </div>
+                          </div>
+                       </div>
+                         {% endif %}
+                       {% endif %}
+
+                       {% for post in  post %}
+
+                       <article class="entry">
+           
+                         <h2 class="entry-title">
+                           <a href="{% url 'post' post.id %}">{{post.titulo}}</a>
+                         </h2>
+           
+                        <div class="entry-meta">
+                           <ul>
+                             <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="#">{{post.autor}}</a></li>
+                             
+                           </ul>
+                           </div>
+           
+                         <div class="entry-content">
+                           <p>
+           
+                           </p>
+                           <div class="read-more">
+                             <a href="{% url 'post' post.id %}">Leer mas</a>
+                           </div>
+                         </div>
+           
+                       </article><!-- End blog entry -->
+                       {% endfor %}
 
 {% endblock  %}
