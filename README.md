@@ -26,6 +26,6 @@ Los lideres podran crear grupos privados, relacionados con sus juegos para crear
 * Santiago Roldan Arias
 
 Link de presentación:
-https://youtu.be/TFvL2RdZaAs
+https://youtu.be/9XGbzuekfMI
 
 ![Pruebas](Pruebas.png)
