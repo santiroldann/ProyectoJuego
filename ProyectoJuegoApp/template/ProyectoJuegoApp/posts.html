@@ -11,30 +11,31 @@ Posts - App Juegos
 {% block contenidoPagina %}
         <!-- Header-->
         <header class="bg-dark py-5" style="background-image: url(https://fivebyfiveglobal.com/wp-content/uploads/2019/10/DetailPage_Header_1920x720_COD_MW.jpg);">|
+
             <div class="container px-5">
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-6">
                         <div class="text-center my-5">
                             <h1 class="display-4 fw-bolder text-light mb-2">POSTS 💻</h1>
-                            <p class="lead text-white-50 mb-4">Aquí encontrarás posts relacionados con la saga</p>
-                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center"></div>
-                            {% csrf_token %}
+                             <p class="lead text-white-50 mb-4">Aquí encontrarás posts relacionados con la saga</p>
+                             <h3> <a href="{% url 'crear_post' %}"><button  class="btn" type="button" style="background-color: #009800a7; color: black">Crear Post</button>
+                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center"></div>
+                              {% csrf_token %}
 
-                             </div>
                               {% if user.is_authenticated %}
                               {% if user.username == "admin" %}
                                <div class="entry">
                                <div class="row">
                                <div class="section-title">
            
-                                <h3> <a href="{% url 'crear_post' %}"><button  class="btn" type="button" style="background-color: #009800a7; color: black">Crear Post</button></a> Eres Administrador</h3>
-                             </div>
+                              <h3> <a href="{% url 'crear_post' %}"><button  class="btn" type="button" style="background-color: #009800a7; color: black">Crear Post</button></a> Eres Administrador</h3>
+                              </div>
+                            </div>
                           </div>
-                       </div>
                          {% endif %}
                        {% endif %}
 
-                       {% for post in  post %}
+                       {% for ent in  post %}
 
                        <article class="entry">
            
@@ -59,6 +60,6 @@ Posts - App Juegos
                          </div>
            
                        </article><!-- End blog entry -->
-                       {% endfor %}
+                    {% endfor %}
 
 {% endblock  %}
