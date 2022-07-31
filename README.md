@@ -28,4 +28,6 @@ Los lideres podran crear grupos privados, relacionados con sus juegos para crear
 Link de presentación:
 https://youtu.be/9XGbzuekfMI
 
+[![Pruebas.png](https://i.postimg.cc/YSmKs6D2/Pruebas.png)](https://postimg.cc/2qmKqZfg)
+
 ![Pruebas](Pruebas.png)
