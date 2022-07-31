@@ -424,13 +424,13 @@ def acerca(request):
     #return HttpResponse('aca va info acerca de mi')
     return render(request, "acerca.html", {})
 
-def posts(request, post_id):
-    post = Post.objects.get(id=post_id)
-    return render(request, "posts.html", {"post":post})
+def posts(request):
+    post = Post.objects.all()
+    return render(request, "posts.html", {})
 
 def post(request):
     post = Post.objects.all()
-    return render(request, "post.html",{"post":post})
+    return render(request, "index.html",{"post":post})
 
 @login_required
 def crear_post(request):
@@ -442,7 +442,7 @@ def crear_post(request):
         if form.is_valid():
             form.save()
 
-            return redirect('posts', {"form":form})
+            return redirect('inicio', {"form":form})
   else:
     form = CrearPost()
 

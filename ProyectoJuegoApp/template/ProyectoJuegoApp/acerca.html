@@ -4,63 +4,18 @@
 Inicio - App Juegos
 {% endblock %}
 
-<nav class="navbar navbar-expand-lg fixed-top navbar-scroll">
-    <div class="container-fluid">
-      <button
-              class="navbar-toggler ps-0"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarExample01"
-              aria-controls="navbarExample01"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-              >
-        <span
-              class="navbar-toggler-icon d-flex justify-content-start align-items-center"
-              >
-          <i class="fas fa-bars"></i>
-        </span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarExample01">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item active">
-            <a class="nav-item btn btn-dark mx-2" aria-current="page" href={% url "inicio" %}>Inicio</a></li>
-    
-                
-                 <li class="nav-item"><a class="btn btn-dark mx-2" href={% url "juegos" %}>Juegos</a></li>
-                 <li class="nav-item"><a class="btn btn-dark mx-2" href={% url "jugadores" %}>Jugadores</a></li>
-                 <li class="nav-item"><a class="btn btn-dark mx-2"" href={% url "lideres" %}>Lideres</a></li>
+{% block contenidoPagina %}
 
-                {% if user.is_authenticated %}
-                    <img class="rounded" src = "{{url}}" alt="" srcset="" style="height: 40px;">
-                    <!-- <i class="bi bi-person-badge-fil text-light"></i> -->
-                    <li class="nav-item"><p class="text-light my-2 mx-2">  Hola, <b>{{user.username}}</b></p></li>
-                    <li class="nav-item"><a class="btn btn-dark mx-2" href={% url "logout" %}>Cerrar sesión</a></li>
-                {% else %}
-                    <li class="nav-item"><a class="btn btn-dark mx-2" href={% url "login" %}>Iniciar sesión</a></li>
-                    <li class="nav-item"><a class="btn btn-dark mx-2" href={% url "register" %}>Registrarse</a></li>
-                {% endif %}
-        
-            </ul>
-        </div>
-    </div>
-</nav>
-  
-  <div class="bg-light">
+<div class="bg-dark py-5" style="background-image: url(https://i.pinimg.com/originals/82/04/46/8204469704a28df21860748037e03fe4.jpg);">
+  <div class="bg-invisible">
     <div class="container py-5">
-      <div class="row h-100 align-items-center py-5">
-        <div class="col-lg-6">
-          <h1 class="display-4">Acerda de mi</h1>
-          <p class="lead text-muted mb-0">Interactua con jugadores de</p> 
-    
-          </p>
         </div>
-        <div class="bg-dark py-5" style="background-image: url(https://support.activision.com/content/dam/atvi/support/article-assets/hero-banners/call-of-duty-mobile/codmobile-hero2.jpg);"></div>
+      </div>
       </div>
     </div>
   </div>
   
-          <h2 class="display-4 font-weight-light">Equipo</h2>
+          <h3 class="display-4 font-weight-light">Equipo</h3>
           <p class="font-italic text-muted">El responsable de este blog es:</p>
         </div>
       </div>
@@ -69,7 +24,14 @@ Inicio - App Juegos
         <!-- Team item-->
         <div class="col-xl-3 col-sm-6 mb-5">
           
-            <h5 class="mb-0">Santiago Roldan</h5><span class="small text-uppercase text-muted">CEO - Fundador</span>
+            <h5 class="mb-0">Santiago Roldan</h5>
+            <span class="small text-uppercase text-muted">CEO - Fundador</span>
+            <p>Mi nombre es Santiago, tengo 26 años. Estoy experimentando esta nueva experiencia
+              debido a que me entro la curiosidad del tema de la programación,
+              siempre me ha gustado el tema tecnológico, por lo tanto siento que
+              estoy aventurandome en un mundo que siempre quise estar.
+              
+            </p>
             <ul class="social mb-0 list-inline mt-3">
               <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
               <li class="list-inline-item"><a href="#" class="social-link"><i class="fa fa-twitter"></i></a></li>
@@ -84,3 +46,6 @@ Inicio - App Juegos
       <p class="font-italic text-muted mb-0">&copy; Copyrights Company.com All rights reserved.</p>
     </div>
   </footer>
+
+
+{% endblock %}
