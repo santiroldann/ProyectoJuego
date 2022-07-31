@@ -40,6 +40,7 @@ urlpatterns = [
     path("editar_juego/<juego_id>", editar_juego, name="editar_juego"),
     path("editar_jugador/<jugador_id>", editar_jugador, name="editar_jugador"),
     path("editar_lider/<lider_id>", editar_juego, name="editar_lider"),
+    path("editar_post/<post_id>", editar_post, name="editar_post"),
     
     path("eliminar_juego/<juego_id>", eliminar_juego, name="eliminar_juego"),
     path("eliminar_jugador/<jugador_id>", eliminar_jugador, name="eliminar_jugador"),
